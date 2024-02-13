@@ -1,10 +1,10 @@
 import random
 
 def t():
-    Voyelles = ['a', 'e', 'i', 'o', 'u']
-    var = "ttt"
-    while var[1] != Voyelles[0] and var[1] != Voyelles[1] and var[1] != Voyelles[2] and var[1] != Voyelles[3] and var[1] != Voyelles[4]:
+    Voyelles = ['a', 'e', 'i', 'o', 'u','y']
+    var = "ttttt"
+    while not(var[1] in Voyelles and var[3] in Voyelles) or var[2] in Voyelles:
         var = ""
-        for i in range(3):
+        for i in range(5):
             var = var + chr(random.randint(97, 122))
     return var
