@@ -12,8 +12,7 @@ def t():
     return var
 
 def lettre_apres(letter):
-    #Cette fonction consiste à donner une lettre aléatoire qui a une probabilité d'arriver après la lettre entrée
-    #Sauf les espaces, les caractères spéciaux et le S après le T
+    #Cette fonction consiste à donner une lettre aléatoire qui a une probabilité d'arriver après la lettre entrée sauf les espaces et les caractères spéciaux
     j = 0
     i = random.randint(0, 3733441)
     while j == 0 :
@@ -22,4 +21,3 @@ def lettre_apres(letter):
             if not(texte[i+1]=='\n' or texte[i+1]==' ' or texte[i+1]=='-'):
                 j = 1
                 return texte[i+1]
-            
