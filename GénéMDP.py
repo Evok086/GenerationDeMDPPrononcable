@@ -1,7 +1,6 @@
 import random
-with open(liste_de_mots_francais.txt, encoding='utf8') as fichier:
+with open("liste_de_mots_francais.txt", encoding='utf8') as fichier:
     texte = fichier.read()
-
 
 def t():
     Voyelles = ['a', 'e', 'i', 'o', 'u','y']
