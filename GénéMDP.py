@@ -19,6 +19,7 @@ def lettre_apres(letter):
     while j == 0 :
         i = i + 1
         if texte[i]==letter:
-            if not(texte[i+1]=='\n'):
+            if not(texte[i+1]=='\n' or texte[i+1]==' ' or texte[i+1]=='-'):
                 j = 1
                 return texte[i+1]
+            
