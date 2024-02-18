@@ -33,3 +33,8 @@ def mdp(long):
     for _ in range(long-1):
         mdp = mdp + lettre_apres(mdp[len(mdp)-1])
     return mdp
+
+def test():
+    for i in range(100):
+        mdp(780)
+    return('Tout va bien')
