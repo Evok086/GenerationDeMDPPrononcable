@@ -29,3 +29,10 @@ def test():
     for i in range(100):
         mdp(780)
     return('Tout va bien')
+
+def mdp_pls_mots(long,nbs_de_mots):
+    mdp_pls_mots = str(mdp(long))
+    for i in range(nbs_de_mots - 1):
+        mdp_pls_mots = mdp_pls_mots + '-' + str(mdp(long))
+    return mdp_pls_mots
+    
