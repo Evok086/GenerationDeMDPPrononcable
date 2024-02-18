@@ -27,3 +27,9 @@ def lettre_apres(letter):
         if texte[i]==letter and not(texte[i+1]=='\n' or texte[i+1]==' ' or texte[i+1]=='-' or texte[i+1]=='é' or texte[i+1]=='à' or texte[i+1]=='ç' or texte[i+1]=='ù' or texte[i+1]=='î' or texte[i+1]=='ê' or texte[i+1]=='è' or texte[i+1]=='â' or condition) :
             j = 1
             return texte[i+1]
+            
+def mdp(long):
+    mdp = chr(random.randint(97, 122))
+    for _ in range(long-1):
+        mdp = mdp + lettre_apres(mdp[len(mdp)-1])
+    return mdp
