@@ -1,70 +1,86 @@
 import random
 with open("liste_de_mots_francais.txt", encoding='utf8') as fichier:
     texte = fichier.read()
-    
 
-lettres = []
 interdit_1er_niveau = ['-']
 interdit_2eme_niveau = ['-','\n']
 
+
 lettre_pré = '\n'
-lettres_suiv = []
-for i in range(len(texte)):
-    lettre = texte[i]
-    if lettre_pré not in interdit_1er_niveau:
-        if lettre_pré not in lettres:
-            lettres.append(lettre_pré)
-            if lettre not in interdit_2eme_niveau:
-                lettres_suiv.append([lettre])
-            else:
-                lettres_suiv.append([])
-        else:
-            if lettre not in interdit_2eme_niveau:
-                index = lettres.index(lettre_pré)
-                lettres_suiv[index].append(lettre)
+lettre_pré_pré = '\n'
+lettres = []
+lettres_suiv = [[]]
+lettres_suiv_suiv = [[]]
+
+def ajout_lettre_dans_lettres(lettre_aj):
+    if lettre_aj in interdit_1er_niveau:
+        return None
+    if lettre_aj not in lettres:
+        lettres.append(lettre_aj)
+        lettres_suiv.append([])
+        lettres_suiv_suiv.append([])
+    return lettres.index(lettre_aj)
+
+def ajout_lettre_dans_lettre_suiv(lettre,index):
+    if lettre in interdit_2eme_niveau:
+        return None
+    lettres_suiv[index].append(lettre)
+    
+def ajout_lettre_dans_lettre_suiv_suiv(lettre,index):
+    if lettre in interdit_2eme_niveau:
+        return None
+    lettres_suiv_suiv[index].append(lettre)
+
+for iLettre in range(len(texte)):
+    lettre = texte[iLettre]
+    if lettre == '\n':
+        lettre_pré = '\n'
+        lettre_pré_pré = '\n'
+    index = ajout_lettre_dans_lettres(lettre_pré)
+    if index != None:
+        ajout_lettre_dans_lettre_suiv(lettre,index)
+    index = ajout_lettre_dans_lettres(lettre_pré_pré)
+    if index != None:
+        ajout_lettre_dans_lettre_suiv_suiv(lettre,index)
+    lettre_pré_pré = lettre_pré
     lettre_pré = lettre
+
 
 def lettre_apres(mot):
     if mot == '':
         derniere_lettre = '\n'
     else:
         derniere_lettre = mot[len(mot)-1]
-    index = lettres.index(derniere_lettre)
-    i = random.randint(0,len(lettres_suiv[index]))
-    letter = lettres_suiv[index][i]
-    return letter
+    index_derniere_lettre = lettres.index(derniere_lettre)
+    if len(mot) >= 2:
+        avant_derniere_lettre = mot[len(mot)-2]
+        index_avant_dernière_lettre = lettres.index(avant_derniere_lettre)
+        common = set(lettres_suiv[index_derniere_lettre]).intersection(lettres_suiv_suiv[index_avant_dernière_lettre])
+        common = list(common)
+        if len(common) <= 0:
+            return None
+        index_resultat = random.randint(0,len(common)-1)
+        lettre = common[index_resultat]
+    else:
+        index_resultat = random.randint(0,len(lettres_suiv[index_derniere_lettre]))
+        lettre = lettres_suiv[index_derniere_lettre][index_resultat]
+    return lettre
 
-'''def lettre_apres(letter):
-    #Cette fonction consiste à donner une lettre aléatoire qui a une probabilité d'arriver après la lettre entrée sauf les espaces et les caractères spéciaux
-    j = 0
-    i = random.randint(0, 1866720)
-    condition = False
-    while j == 0 :
-        i = i + 1
-        if letter == 's' or letter == 't' or letter == 'r' or letter == 'l':
-            condition = texte[i+1]=='s' or texte[i+1]=='t' or texte[i+1]=='r' or texte[i+1]=='l'
-        if letter == 'i':
-            condition = texte[i+1]=='e'
-        if letter == 'e':
-            condition = texte[i+1]=='a'
-        if texte[i]==letter and not(texte[i+1]=='\n' or texte[i+1]==' ' or texte[i+1]=='-' or texte[i+1]=='é' or texte[i+1]=='à' or texte[i+1]=='ç' or texte[i+1]=='ù' or texte[i+1]=='î' or texte[i+1]=='ê' or texte[i+1]=='è' or texte[i+1]=='â' or condition) :
-            j = 1
-            return texte[i+1]'''
-
-def mdp(long):
+def generer_mdp(long):
+    if long > 12:
+        return None
     mdp = ''
     for _ in range(long):
         mdp = mdp + lettre_apres(mdp)
     return mdp
 
 def test():
-    for i in range(100):
-        mdp(780)
+    for iTest in range(100):
+        generer_mdp(780)
     return('Tout va bien')
 
-def mdp_pls_mots(long,nbs_de_mots):
-    mdp_pls_mots = str(mdp(long))
-    for i in range(nbs_de_mots - 1):
-        mdp_pls_mots = mdp_pls_mots + '-' + str(mdp(long))
+def generer_mdp_pls_mots(long,nbs_de_mots):
+    mdp_pls_mots = str(generer_mdp(long))
+    for iMdp in range(nbs_de_mots - 1):
+        mdp_pls_mots = mdp_pls_mots + '-' + str(generer_mdp(long))
     return mdp_pls_mots
-    
