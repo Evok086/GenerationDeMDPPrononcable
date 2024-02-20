@@ -8,9 +8,9 @@ with open("liste_de_mots_francais.txt", encoding='utf8') as fichier:
 
 #listes pour les lettres intredites
 #sans le \n pour la proba que une lettre commence un mot
-interdit_1er_niveau = ['-','é','è','à','ù','â','ô','ï','ö']
+interdit_1er_niveau = ['-','é','è','à','ù','â','ô','û','ê','î','ï','ö','ç']
 # on rajoute le \n
-interdit_2eme_niveau = ['-','\n','é','è','à','ù','â','ô','ï','ö']
+interdit_2eme_niveau = ['-','\n','é','è','à','ù','â','ô','û','ê','î','ï','ö','ç']
 
 #definition des variables
 lettre_pré = '\n'
@@ -115,16 +115,13 @@ zone_mdp = Label(fenetre).pack(padx=10, pady=10)
 mdp_gen = ''
 
 def creer():
-
+    
     mdp_gen = generer_mdp_pls_mots(int(nb_lettres.get()),int(nb_mots.get()))
-    Label(fenetre, text=mdp_gen).pack(padx=10, pady=10)
+    showinfo('Titre 3', 'Vous avez peur!')
+    #messagebox.showinfo('Votre mot de passe est', mdp_gen)
 
-def copier():
-    process = subprocess.Popen(['clip'], stdin=subprocess.PIPE)
-    process.communicate(bytes(mdp_gen, 'utf-8'))
 
 Canvas(fenetre, width=250, height=100, bg='ivory').pack(side=TOP, padx=5, pady=5)
 bouton_creer = Button(fenetre, text ='Créer', command=creer).pack(side=LEFT, padx=5, pady=5)
-Button(fenetre, text ='Copier', command=copier).pack(side=RIGHT, padx=5, pady=5)
 
 fenetre.mainloop()
