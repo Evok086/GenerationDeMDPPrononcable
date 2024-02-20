@@ -1,7 +1,6 @@
 from tkinter import *
 import random
 import subprocess
-from tkinter.messagebox import showinfo
 #lire le dictionnaire
 with open("liste_de_mots_francais.txt", encoding='utf8') as fichier:
     texte = fichier.read()
@@ -114,12 +113,9 @@ nb_lettres.pack()
 zone_mdp = Label(fenetre).pack(padx=10, pady=10)
 mdp_gen = ''
 
-def creer():
-    
+def creer(): 
     mdp_gen = generer_mdp_pls_mots(int(nb_lettres.get()),int(nb_mots.get()))
-    showinfo('Titre 3', 'Vous avez peur!')
-    #messagebox.showinfo('Votre mot de passe est', mdp_gen)
-
+    Label(fenetre,text=mdp_gen).pack(padx=10, pady=10)
 
 Canvas(fenetre, width=250, height=100, bg='ivory').pack(side=TOP, padx=5, pady=5)
 bouton_creer = Button(fenetre, text ='Créer', command=creer).pack(side=LEFT, padx=5, pady=5)
