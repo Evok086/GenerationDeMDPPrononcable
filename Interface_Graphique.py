@@ -1,23 +1,25 @@
 from tkinter import *
 import random
 import subprocess
-from tkinter.ttk import Progressbar
-from tkinter import ttk
-import tkinter as tk
 from tkinter.messagebox import showinfo
+#lire le dictionnaire
 with open("liste_de_mots_francais.txt", encoding='utf8') as fichier:
     texte = fichier.read()
 
-interdit_1er_niveau = ['-']
-interdit_2eme_niveau = ['-','\n']
+#listes pour les lettres intredites
+#sans le \n pour la proba que une lettre commence un mot
+interdit_1er_niveau = ['-','é','è','à','ù','â','ô','ï','ö']
+# on rajoute le \n
+interdit_2eme_niveau = ['-','\n','é','è','à','ù','â','ô','ï','ö']
 
-
+#definition des variables
 lettre_pré = '\n'
 lettre_pré_pré = '\n'
 lettres = []
 lettres_suiv = [[]]
 lettres_suiv_suiv = [[]]
 
+#
 def ajout_lettre_dans_lettres(lettre_aj):
     if lettre_aj in interdit_1er_niveau:
         return None
