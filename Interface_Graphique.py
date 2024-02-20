@@ -1,7 +1,6 @@
 from tkinter import *
 import random
 import subprocess
-import pyperclip
 #lire le dictionnaire
 with open("liste_de_mots_francais.txt", encoding='utf8') as fichier:
     texte = fichier.read()
